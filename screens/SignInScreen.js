@@ -79,10 +79,11 @@ const SignInScreen = () => {
             Alert.alert("Campos vacíos","Por favor, completar los campos");
         }else{
             if(data.isValidEmail && data.isValidPassword){
-                setLoading(true);
+                //setLoading(true);
                 signIn(email, password);
             }else{
                 Alert.alert("Datos invalidos","Por favor, verificar los datos ingresados");
+				//setLoading(false);
             }
         }
     }

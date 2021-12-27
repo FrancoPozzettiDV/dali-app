@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState,useEffect} from 'react';
-import { StyleSheet, Text, View, Button, Picker, ActivityIndicator, Alert } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Button, Picker, ActivityIndicator, Alert } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
@@ -94,9 +94,11 @@ function CreateScreen({navigation}){
 
 
   return(
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <StatusBar style={theme.dark ? "light" : "dark"} />
-      <Text style={{color: colors.text, fontWeight:'bold',fontSize:20}}>Ingrese los siguientes datos</Text>
+      <View style={styles.action}>
+        <Text style={{color: colors.text,fontWeight:'bold',fontSize: 20}}>Ingrese los siguientes datos</Text>
+      </View>
       <View style={styles.action}>
       
       <Controller
@@ -118,7 +120,7 @@ function CreateScreen({navigation}){
         defaultValue=""
       />
       </View>
-      {errors.nombrePaciente && <Text style={{color: '#FF0000'}}>Por favor, ingresar nombre.</Text>}
+      {errors.nombrePaciente && <View style={styles.error}><Text style={{color: '#FF0000'}}>Por favor, ingresar nombre.</Text></View>}
       <View style={styles.action}>
       
       <Controller
@@ -141,7 +143,7 @@ function CreateScreen({navigation}){
         defaultValue=""
       />
       </View>
-      {errors.telefono && <Text style={{color: '#FF0000'}}>Por favor, ingresar teléfono.</Text>}
+      {errors.telefono && <View style={styles.error}><Text style={{color: '#FF0000'}}>Por favor, ingresar teléfono.</Text></View>}
       <View style={styles.action}>
       <Controller
         control={control}
@@ -171,7 +173,7 @@ function CreateScreen({navigation}){
       />
       
       </View>
-      {errors.fecha && <Text style={{color: '#FF0000'}}>Por favor, ingresar fecha.</Text>}
+      {errors.fecha && <View style={styles.error}><Text style={{color: '#FF0000'}}>Por favor, ingresar fecha.</Text></View>}
       <View style={styles.action}>
       
       <Controller
@@ -227,7 +229,7 @@ function CreateScreen({navigation}){
         defaultValue=""
       />
       </View>
-      {(errors.desde || errors.hasta) && <Text style={{color: '#FF0000'}}>Por favor, ingresar horario.</Text>}
+      {(errors.desde || errors.hasta) && <View style={styles.error}><Text style={{color: '#FF0000'}}>Por favor, ingresar horario.</Text></View>}
       <View style={styles.action}>
       <Controller
         control={control}
@@ -248,7 +250,7 @@ function CreateScreen({navigation}){
         defaultValue=""
       />
       </View>
-      {errors.motivo && <Text style={{color: '#FF0000'}}>Por favor, ingresar motivo.</Text>}
+      {errors.motivo && <View style={styles.error}><Text style={{color: '#FF0000'}}>Por favor, ingresar motivo.</Text></View>}
       <View style={styles.action}>
       <View style={theme.dark ? styles.light : styles.dark}>
       {isReady ?
@@ -275,7 +277,7 @@ function CreateScreen({navigation}){
       }
       </View>
       </View>
-      {errors.id_profesional && <Text style={{color: '#FF0000'}}>Por favor, seleccionar profesional.</Text>}
+      {errors.id_profesional && <View style={styles.error}><Text style={{color: '#FF0000'}}>Por favor, seleccionar profesional.</Text></View>}
       <View style={styles.action}>
       <Button 
         color='#009387'
@@ -283,7 +285,7 @@ function CreateScreen({navigation}){
         onPress={handleSubmit(data => onSubmit(data,userData,navigation))}
       />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -292,13 +294,21 @@ export default CreateScreen;
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+      paddingTop: 10,
     },
     action: {
       flexDirection: 'row',
       marginTop: 10,
-      paddingBottom: 5
+      paddingBottom: 5,
+	    alignItems: 'center',
+      justifyContent: 'center',
+    },
+    error: {
+      flexDirection: 'row',
+      marginTop: 5,
+      paddingBottom: 5,
+	    alignItems: 'center',
+      justifyContent: 'center',
     },
     light: {
       borderWidth: 1, 
